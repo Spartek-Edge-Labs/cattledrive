@@ -6,3 +6,5 @@ A tool designed to declaratively pull artifacts needed (yum repos, web directori
 - [Rancher Federal's Hauler](https://github.com/rancherfederal/hauler)
 - [Pulp](https://pulpproject.org/)
 
+## Disclaimer
+I'm not a programmer.  I have no idea what I'm doing.  This works for me but I make no gurantees it works for you.  Assume none of what I'm doing is best practice.
