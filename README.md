@@ -7,7 +7,7 @@ A tool designed to declaratively pull artifacts needed (yum repos, web directori
 - [Pulp](https://pulpproject.org/)
 - A variation of ever script I've ever written on every project I've ever been on
 
-The script should be generally idempotent, but recommend you test on a fresh folder before using it as a mirror script.
+The script should be generally idempotent, but recommend you test on a fresh folder before using it as a mirror script. See [TODO](./TODO.md) for things that could use improvement.
 
 ## Usage
 ```bash
@@ -76,7 +76,7 @@ mirror:
 ```
 
 ### `helm`
-Pulls down helm chart and optionally the OCI/Docker images it depends on
+Pulls down helm chart and optionally the OCI/Docker images it depends on.  Only tested for latest version
 
 
 **Example**

@@ -100,7 +100,7 @@ def get_helm(repo,chart,dest,cleanup,pullImages):
     
     if pullImages is True:
 
-        # TODO: This is ugly, get a better way to find the tarball path
+        # TODO: This is ugly, get a better way to find the tarball path - will fail at pulling docker images for older helm charts. need to get the filename created from the 'helm pull' command
         helmList = glob.glob(chart + '-*.tgz')
         tarballPath = sorted(helmList,reverse=True)[0]  # get the latest tarball's path
 
