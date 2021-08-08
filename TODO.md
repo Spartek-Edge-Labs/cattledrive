@@ -6,13 +6,14 @@
 - [ ] command line options
   - [ ] dry run
   - [ ] config file
-- [ ] compression options
+- [ ] post-process compression options
   - [ ] gzip
   - [ ] split
   - [ ] progress bar
 - [ ] use python native libs, not system calls
-- [ ] mirror types to add
-  - [ ] helm
+- [ ] mirror types
+  - [x] wget recursive
+  - [x] helm
     - [ ] search helm charts and pull docker images required
   - [x] docker
     - [ ] support `docker login` credentials
