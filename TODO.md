@@ -1,4 +1,9 @@
 # TODOs
+- [ ] `global` config
+  - [ ] compressPulledHelmOciImages (can be overrided by local mirror def)
+  - [ ] compressPulledOciImages (can be overrided by local mirror def)
+  - [ ] workingTempDir (where helm charts )
+  - [ ] user defined naming schemes for mirror `type:docker`
 - [ ] concurrent downloads
 - [ ] any kind of error handling/input sanitization
 - [ ] uniform progress bars across protocol
@@ -14,13 +19,13 @@
 - [ ] mirror types
   - [x] wget recursive
   - [x] helm
-    - [ ] search helm charts and pull docker images required
+    - [x] search helm charts and pull docker images required
   - [x] docker
     - [ ] support `docker login` credentials
   - [x] local files - rsync
   - [x] rsync protocol
     - [ ] retry on failure/timeout/network link issue
-  - [ ] yum repos (using reposync, createrepo with comps.xml)
+  - [ ] yums repos (using reposync, createrepo with comps.xml)
   - [ ] apk repos (alpine linux)
   - [ ] apt repos (.debs)
   - [ ] git

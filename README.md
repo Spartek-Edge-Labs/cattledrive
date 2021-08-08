@@ -76,7 +76,7 @@ mirror:
 ```
 
 ### `helm`
-Pulls down helm chart.
+Pulls down helm chart and optionally the OCI/Docker images it depends on
 
 
 **Example**
@@ -88,6 +88,7 @@ mirror:
     dest: /home/mike/drop/helm/traefik/
     cleanup: false # OPTIONAL - Remove the temporary helm repository-config 
                    # (useful to know when/where the chart was pulled). If omitted, defaults to true.
+    pullImages: true # OPTIONAL - pulls docker images that the helm chart depends on.
 ```
 
 ## Disclaimer/Warranty

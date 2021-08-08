@@ -10,8 +10,13 @@ mirror:
     src: hello-world:latest
     dest: /home/mike/drop/docker/
     compress: false # if omitted, defaults to true
+  - type: oci
+    src: quay.io/prometheus/node-exporter
+    dest: /home/mike/drop/docker/
+    compress: true # if omitted, defaults to true
   - type: helm
     repo: https://helm.traefik.io/traefik 
     chart: traefik
     dest: /home/mike/drop/helm/traefik/
-    cleanup: false #if omitted, defaults to true
+    #cleanup: false #if omitted, defaults to true
+    pullImages: true #if omitted, defaults to false
