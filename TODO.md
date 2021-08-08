@@ -20,7 +20,7 @@
   - [x] wget recursive
   - [x] helm
     - [x] search helm charts and pull docker images required
-    - [ ] pull other versions besides latest chart (might work, untested, will likely fail with [bug](./cattleDrive.py:103))
+    - [ ] pull other versions besides latest chart (might work, untested, will likely fail with [bug](./cattleDrive.py#L103))
   - [x] docker
     - [ ] support `docker login` credentials
   - [x] local files - rsync
