@@ -1,0 +1,17 @@
+---
+mirror:
+  - type: wget
+    src: https://mirrors.rit.edu/centos/7/os/x86_64/repodata/
+    dest: /home/mike/drop/wget/
+  - type: rsync
+    src: rsync://mirrors.rit.edu/centos/7/os/x86_64/repodata/
+    dest: /home/mike/drop/rsync/
+  - type: oci
+    src: hello-world:latest
+    dest: /home/mike/drop/docker/
+    compress: false # if omitted, defaults to true
+  - type: helm
+    repo: https://helm.traefik.io/traefik 
+    chart: traefik
+    dest: /home/mike/drop/helm/traefik/
+    cleanup: false #if omitted, defaults to true
