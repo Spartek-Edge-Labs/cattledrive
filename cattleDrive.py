@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 import yaml
@@ -29,7 +29,7 @@ def get_wget(src,dest):
     pageName = ''.join(random.choice(string.ascii_letters) for i in range(10))
     
     # get number of dirs to cut
-    cutDirs = src.count('/') - 2
+    cutDirs = src.count('/') - 3
 
     currDir = os.getcwd()
     pushd(dest)
@@ -43,7 +43,7 @@ def get_wget(src,dest):
                 "-R " + pageName + "*", "--relative",
                  src ])
     
-    os.remove(pageName)     # cleanup random index page name
+    #os.remove(pageName)     # cleanup random index page name
 
     os.chdir(currDir)
 
