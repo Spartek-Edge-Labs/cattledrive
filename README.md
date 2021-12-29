@@ -1,5 +1,5 @@
 # cattleDrive
-System provisioning artifact aggregrator.
+System provisioning artifact aggregator.
 
 A tool designed to declaratively pull artifacts needed (yum repos, web directories, docker containers, helm charts, etc.) needed for green field or air-gapped deployments.  Inspired by:
 
@@ -20,7 +20,7 @@ The config file in this repo has examples of every type of "mirror" protocol tha
 ## Mirror Protocols
 
 ### `wget`
-Requires the `wget` command in your `$PATH`.  Does a recursive download of the path specificed to the directory specified, stripping out all of the dirs in the `source` path.  Good for any directory listing on a web server or similar.
+Requires the `wget` command in your `$PATH`.  Does a recursive download of the path specified to the directory specified, stripping out all of the dirs in the `source` path.  Good for any directory listing on a web server or similar.
 
 **Example**
 ```yaml
@@ -92,6 +92,4 @@ mirror:
 ```
 
 ## Disclaimer/Warranty
-TL;DR - Caveat Emptor.
-
-This works for me but I make no gurantees it works for you, or that any of it is even a good idea.  Assume none of what I'm doing is best practice. I make no warranty express or implied of fitness for a particular purpose.
+TL;DR - Caveat Emptor.  There is no warranty express or implied of fitness for a particular purpose.
