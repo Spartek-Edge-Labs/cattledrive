@@ -70,7 +70,7 @@ def get_oci(image,dest,compress):
     currDir=os.getcwd()
     pushd(dest)
     
-    fileName = image.replace(':','_').replace('/','_')
+    fileName = image.replace('/','_')
 
     sp.run(["docker", "pull", image ])
 
