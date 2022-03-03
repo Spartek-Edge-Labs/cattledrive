@@ -2,6 +2,7 @@
 
 
 from genericpath import exists
+from jinja2 import Template as j2
 import yaml
 import subprocess as sp
 import string
@@ -177,13 +178,39 @@ def pull_helm_images(tarball,chartName,dest):
     for img in imageList:
         get_oci(img,imgDir,True) 
 
+## do reposync on yum repos
+def get_reposync (**args):
+    
+    currDir=os.getcwd()
+    pushdir(args['dest'])
+
+    repoFile = "cattledrive.repo"
+
+    t = j2("
+    [cattledrive]
+    name=cattledrive repo
+    baseurl={{ destURL }}
+    enabled=1
+    {% if gpgkey is defined %}
+    gpgcheck=1
+    gpgkey={{ gpgkey }}
+    {% else %}
+    gpgcheck=0
+    {% endif %}
+    ")
+    f = open(repoFile, "w")
+
+
+    # create repo file in root of dest
+    # reposync the file
+
+    os.chdir(currDir)
+
+## Main
 
 # Load config
 # TODO: check if config exsist and is valid yaml
 config = yaml.safe_load( open(sys.argv[1], 'r') )
-
-
-## Main
 
 for s in config.get("mirror"):
     
