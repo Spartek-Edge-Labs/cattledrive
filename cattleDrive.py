@@ -39,8 +39,7 @@ def get_wget(src,dest):
                 "-e robots=off", 
                 "-m", "-nH", "--no-parent", 
                 "--cut-dirs=" + str(cutDirs), 
-                "--default-page=" + pageName,
-                "-R " + pageName + "*", "--relative",
+                "--relative",
                  src ])
     
     #os.remove(pageName)     # cleanup random index page name
