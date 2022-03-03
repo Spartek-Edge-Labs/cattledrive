@@ -1,22 +1,22 @@
 ---
 mirror:
   - type: wget
-    src: https://mirrors.rit.edu/centos/7/os/x86_64/repodata/
-    dest: /home/mike/drop/wget/
+    src: https://mirror.umd.edu/centos/7/os/x86_64/
+    dest: /home/mike/drop/cattleDrive/wget/
   - type: rsync
-    src: rsync://mirrors.rit.edu/centos/7/os/x86_64/repodata/
-    dest: /home/mike/drop/rsync/
+    src: rsync://mirrors.rit.edu/centos/7/os/x86_64/
+    dest: /home/mike/drop/cattleDrive/rsync/
   - type: oci
     src: hello-world:latest
-    dest: /home/mike/drop/docker/
+    dest: /home/mike/drop/cattleDrive/docker/
     compress: false # if omitted, defaults to true
   - type: oci
     src: quay.io/prometheus/node-exporter
-    dest: /home/mike/drop/docker/
+    dest: /home/mike/drop/cattleDrive/docker/
     compress: true # if omitted, defaults to true
   - type: helm
     repo: https://helm.traefik.io/traefik 
     chart: traefik
-    dest: /home/mike/drop/helm/traefik/
-    #cleanup: false #if omitted, defaults to true
+    dest: /home/mike/drop/cattleDrive/helm/traefik/
+    cleanup: false #if omitted, defaults to true
     pullImages: true #if omitted, defaults to false
