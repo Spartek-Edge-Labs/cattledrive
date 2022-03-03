@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 
+from genericpath import exists
 import yaml
 import subprocess as sp
 import string
@@ -82,28 +83,36 @@ def get_oci(image,dest,compress):
 
 
 # Helm 3 charts
-def get_helm(repo,chart,dest,cleanup,pullImages):
-
+def get_helm(**args):
     currDir=os.getcwd()
-    pushd(dest)
+    pushd(args['dest'])
 
-    repoConfig = chart + ".yaml"
-    sp.run("helm --repository-config " + repoConfig + " repo add cattleDrive " + repo, shell=True)
-    sp.run("helm --repository-config " + repoConfig + " pull cattleDrive/" + chart, shell=True)
+    if 'version' in args:
+        repoConfig = args['chart'] + "-" + args['version'] + ".yaml"
+    else:
+        repoConfig = args['chart'] + ".yaml"
     
-    os.remove(chart + ".lock")
+    sp.run("helm --repository-config " + repoConfig + " repo add cattleDrive-"+ args['chart'] + " " + args['repo'], shell=True)
+    sp.run("helm --repository-config " + repoConfig + " repo update", shell=True)
 
-    if cleanup is True:
+    helmSave = "helm --repository-config " + repoConfig + " pull cattleDrive-" + args['chart'] +"/" + args['chart']
+    if 'version' in args:
+        helmSave += " --version " + args['version']
+    sp.run(helmSave, shell=True)
+    
+    os.remove(repoConfig[:-5] + ".lock")
+
+    if args['cleanup'] is True:
         os.remove(repoConfig)
 
     
-    if pullImages is True:
+    if args['pullImages'] is True:
 
         # TODO: This is ugly, get a better way to find the tarball path - will fail at pulling docker images for older helm charts. need to get the filename created from the 'helm pull' command
-        helmList = glob.glob(chart + '-*.tgz')
+        helmList = glob.glob(args['chart'] + '-*.tgz')
         tarballPath = sorted(helmList,reverse=True)[0]  # get the latest tarball's path
 
-        pull_helm_images(tarballPath,chart,dest)
+        pull_helm_images(tarballPath,args['chart'],args['dest'])
     
     os.chdir(currDir)
 
@@ -196,20 +205,18 @@ for s in config.get("mirror"):
     
     # helm charts
     elif s["type"] == "helm":
-
+        thisObj = s
         # default 'cleanup' val
-        if "cleanup" in s:
-            cleanup = s["cleanup"]
-        else:
-            cleanup = True
+        if "cleanup" not in thisObj:
+            thisObj["cleanup"] = True
         
         # default 'pullImage' val
-        if "pullImages" in s:
-            pullImages = s["pullImages"]
-        else:
-            pullImages = False
-        
-        get_helm(s["repo"], s["chart"],s["dest"], cleanup, pullImages)
+        if "pullImages" not in thisObj:
+            thisObj["pullImages"] = False
+
+        del thisObj['type']
+
+        get_helm(**thisObj)
 
     else:
         print("We dont handle type:\'" + s["type"] + "\' yet. Maybe check your config file.")
