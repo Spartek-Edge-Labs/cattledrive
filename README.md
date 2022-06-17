@@ -91,5 +91,19 @@ mirror:
     pullImages: true # OPTIONAL - pulls docker images that the helm chart depends on.
 ```
 
+### `reposync`
+When `wget` and `rsync` are not options, you can use `reposync`.  This utilizes `reposync` from your path and pulls the repo down based on a baseurl definition.  
+
+This is also useful when you're pulling from a location where you want to validate the metadata.  `createrepo --update .` is run at the end to generate repodata.
+
+**Example**
+```yaml
+mirror:
+  - type: reposync
+    src: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/
+    dest: /home/mike/drop/cattleDrive/kick/working/os/kubernetes/el7/x86_64/
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg
+```
+
 ## Disclaimer/Warranty
 TL;DR - Caveat Emptor.  There is no warranty express or implied of fitness for a particular purpose.
