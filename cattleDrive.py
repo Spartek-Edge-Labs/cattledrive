@@ -247,8 +247,11 @@ for s in config.get("mirror"):
         del thisObj['type']
 
         get_helm(**thisObj)
+    
+    #reposync
     elif s["type"] == "reposync":
         get_reposync(**s)
+
     else:
         print("We dont handle type:\'" + s["type"] + "\' yet. Maybe check your config file.")
     
