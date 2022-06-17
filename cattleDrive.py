@@ -2,6 +2,7 @@
 
 
 from genericpath import exists
+from jinja2 import Template as j2
 import yaml
 import subprocess as sp
 import string
@@ -177,13 +178,42 @@ def pull_helm_images(tarball,chartName,dest):
     for img in imageList:
         get_oci(img,imgDir,True) 
 
+## do reposync on yum repos
+def get_reposync (**args ):
+    
+    currDir=os.getcwd()
+    pushd(args['dest'])
+
+    repoFile = "cattledrive.repo"
+    t = j2("""[cattledrive]
+name=cattledrive repo
+baseurl={{ src }}
+enabled=1
+{% if gpgkey is defined %}gpgcheck=1
+gpgkey={{ gpgkey }}
+{% else %}gpgcheck=0
+{% endif %}""")
+
+    # render repofile
+    renderedRepo = t.render(**args)
+    
+    # write repofile to disk
+    f = open(repoFile, "w")
+    f.write(renderedRepo)
+    f.close()
+
+    # reposync the file
+    sp.run(f'reposync -c {repoFile} --repo cattledrive --norepopath', shell=True)
+    sp.run('createrepo --update .', shell=True)
+    if 'gpgkey' in args and args['gpgkey']:
+        get_wget(src=args['gpgkey'], dest='.')
+    os.chdir(currDir)
+
+## Main
 
 # Load config
 # TODO: check if config exsist and is valid yaml
 config = yaml.safe_load( open(sys.argv[1], 'r') )
-
-
-## Main
 
 for s in config.get("mirror"):
     
@@ -217,6 +247,10 @@ for s in config.get("mirror"):
         del thisObj['type']
 
         get_helm(**thisObj)
+    
+    #reposync
+    elif s["type"] == "reposync":
+        get_reposync(**s)
 
     else:
         print("We dont handle type:\'" + s["type"] + "\' yet. Maybe check your config file.")
