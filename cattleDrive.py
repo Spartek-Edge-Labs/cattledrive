@@ -205,6 +205,8 @@ gpgkey={{ gpgkey }}
     # reposync the file
     sp.run(f'reposync -c {repoFile} --repo cattledrive --norepopath', shell=True)
     sp.run('createrepo --update .', shell=True)
+    if 'gpgkey' in args and args['gpgkey']:
+        get_wget(src=args['gpgkey'], dest='.')
     os.chdir(currDir)
 
 ## Main
