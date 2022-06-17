@@ -179,31 +179,32 @@ def pull_helm_images(tarball,chartName,dest):
         get_oci(img,imgDir,True) 
 
 ## do reposync on yum repos
-def get_reposync (**args):
+def get_reposync (**args ):
     
     currDir=os.getcwd()
-    pushdir(args['dest'])
+    pushd(args['dest'])
 
     repoFile = "cattledrive.repo"
+    t = j2("""[cattledrive]
+name=cattledrive repo
+baseurl={{ src }}
+enabled=1
+{% if gpgkey is defined %}gpgcheck=1
+gpgkey={{ gpgkey }}
+{% else %}gpgcheck=0
+{% endif %}""")
 
-    t = j2("
-    [cattledrive]
-    name=cattledrive repo
-    baseurl={{ destURL }}
-    enabled=1
-    {% if gpgkey is defined %}
-    gpgcheck=1
-    gpgkey={{ gpgkey }}
-    {% else %}
-    gpgcheck=0
-    {% endif %}
-    ")
+    # render repofile
+    renderedRepo = t.render(**args)
+    
+    # write repofile to disk
     f = open(repoFile, "w")
+    f.write(renderedRepo)
+    f.close()
 
-
-    # create repo file in root of dest
     # reposync the file
-
+    sp.run(f'reposync -c {repoFile} --repo cattledrive --norepopath', shell=True)
+    sp.run('createrepo --update .', shell=True)
     os.chdir(currDir)
 
 ## Main
@@ -244,7 +245,8 @@ for s in config.get("mirror"):
         del thisObj['type']
 
         get_helm(**thisObj)
-
+    elif s["type"] == "reposync":
+        get_reposync(**s)
     else:
         print("We dont handle type:\'" + s["type"] + "\' yet. Maybe check your config file.")
     
