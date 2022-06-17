@@ -20,3 +20,7 @@ mirror:
     dest: /home/mike/drop/cattleDrive/helm/traefik/
     cleanup: false #if omitted, defaults to true
     pullImages: true #if omitted, defaults to false
+  - type: reposync
+    src: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/
+    dest: /home/mike/drop/cattleDrive/kubernetes/el7/x86_64/
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg ## if omitted, will not perform gpgkey check and not include it in the repo definition
