@@ -55,7 +55,7 @@ def get_rsync(src,dest):
 
     # TODO: check rsync is installed
     sp.run(["rsync", 
-                "-avzP", "--delete",
+                "-avz", "--delete",
                 src, dest ])
     
     os.chdir(currDir)
