@@ -209,6 +209,22 @@ gpgkey={{ gpgkey }}
         get_wget(src=args['gpgkey'], dest='.')
     os.chdir(currDir)
 
+# Ansible galaxy
+def get_galaxy(**args ):
+
+    currDir = os.getcwd()
+    pushd(args['dest'])
+    
+    # TODO: check wget is installed
+    sp.run(["ansible-galaxy", 
+                "collection", 
+                "install", 
+                args['src'], 
+                "-p", "."])
+
+    os.chdir(currDir)
+
+
 ## Main
 
 # Load config
@@ -251,6 +267,10 @@ for s in config.get("mirror"):
     #reposync
     elif s["type"] == "reposync":
         get_reposync(**s)
+
+    #ansible galaxy
+    elif s["type"] == "galaxy":
+        get_galaxy(**s)
 
     else:
         print("We dont handle type:\'" + s["type"] + "\' yet. Maybe check your config file.")
