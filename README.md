@@ -105,5 +105,38 @@ mirror:
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg
 ```
 
+### `galaxy`
+This pulls Ansible Galaxy modules and installs them to `dest`
+
+```yaml
+mirror:
+  - type: galaxy
+    src: "kubernetes.core"
+    dest: "/home/mike/drop/cattleDrive/galaxy/"
+```
+
+Will result in:
+```bash
+galaxy
+└── ansible_collections
+    └── kubernetes
+        └── core
+            ├── bindep.txt
+            ├── CHANGELOG.rst
+            ├── changelogs
+            ├── codecov.yml
+            ├── CONTRIBUTING.md
+            ├── .......
+```
+
+Note, you can specify a version like:
+
+```yaml
+mirror:
+  - type: galaxy
+    src: "kubernetes.core:1.2.3"
+    dest: "/home/mike/drop/cattleDrive/galaxy/"
+```
+
 ## Disclaimer/Warranty
 TL;DR - Caveat Emptor.  There is no warranty express or implied of fitness for a particular purpose.

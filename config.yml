@@ -24,3 +24,6 @@ mirror:
     src: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/
     dest: /home/mike/drop/cattleDrive/kubernetes/el7/x86_64/
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg ## if omitted, will not perform gpgkey check and not include it in the repo definition
+  - type: galaxy
+    src: "kubernetes.core"
+    dest: "/home/mike/drop/cattleDrive/galaxy/"
