@@ -27,24 +27,21 @@ def pushd(dir):
 # WGET
 def get_wget(src,dest):
     
-    # generage a random (likely non-colliding) page name that we can reliably delete later
-    pageName = ''.join(random.choice(string.ascii_letters) for i in range(10))
-    
     # get number of dirs to cut
     cutDirs = src.count('/') - 3
 
     currDir = os.getcwd()
     pushd(dest)
-    
+
     # TODO: check wget is installed
-    sp.run(["wget", 
+    sp.run(' '.join(["wget", 
                 "-e robots=off", 
                 "-m", "-nH", "--no-parent", 
                 "--cut-dirs=" + str(cutDirs), 
-                "--relative",
-                 src ])
-    
-    #os.remove(pageName)     # cleanup random index page name
+                "--relative", "--reject=index.html?*",
+                 src ]), shell=True)
+
+    # join/shell witchcraft due to #19 and https://stackoverflow.com/a/39096422
 
     os.chdir(currDir)
 
