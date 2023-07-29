@@ -7,7 +7,7 @@ Given some of the issues we've discovered with running some of the programs (esp
 docker build -t cattledrive:0.1 .
 ```
 
-## Runnding
+## Running
 
 ```bash
 docker run -d --name dev9 -v $(pwd):/repo -v /home/mike/drop/cattleDrive:/home/mike/drop/cattleDrive -v /var/run/docker.sock:/var/run/docker.sock cattledrive:0.1 cattleDrive /repo/config.yml
