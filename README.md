@@ -19,7 +19,11 @@ The script should be generally idempotent, but recommend you test on a fresh fol
 
 ### Docker container
 ```bash
-docker run -d --name dev9 -v $(pwd):/repo -v /home/mike/drop/cattleDrive:/home/mike/drop/cattleDrive -v /var/run/docker.sock:/var/run/docker.sock public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest cattleDrive /repo/config.yml
+docker run -d -v $(pwd):/repo \
+ -v /home/mike/drop/cattleDrive:/home/mike/drop/cattleDrive \
+ -v /var/run/docker.sock:/var/run/docker.sock \
+ public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest \
+ cattleDrive /repo/config.yml
 ```
 
 See the [docker readme](./docker-readme.md) for more details.
