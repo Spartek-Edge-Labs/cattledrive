@@ -7,6 +7,10 @@ Given some of the issues we've discovered with running some of the programs (esp
 docker build -t cattledrive:0.1 .
 ```
 
+## Pulling
+We host a pre-built image available at:
+> public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest
+
 ## Running
 
 ```bash

@@ -10,9 +10,19 @@ A tool designed to declaratively pull artifacts needed (yum repos, web directori
 The script should be generally idempotent, but recommend you test on a fresh folder before using it as a mirror script. See [TODO](./TODO.md) for things that could use improvement.
 
 ## Usage
+
+### Directly
+
 ```bash
-$ ./cattleDrive.py config.yml
+./cattleDrive.py config.yml
 ```
+
+### Docker container
+```bash
+docker run -d --name dev9 -v $(pwd):/repo -v /home/mike/drop/cattleDrive:/home/mike/drop/cattleDrive -v /var/run/docker.sock:/var/run/docker.sock public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest cattleDrive /repo/config.yml
+```
+
+See the [docker readme](./docker-readme.md) for more details.
 
 ## Config
 The config file in this repo has examples of every type of "mirror" protocol thats currently implemented. See it for examples and modify to suit.
