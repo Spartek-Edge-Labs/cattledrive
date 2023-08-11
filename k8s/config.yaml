@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cattledrive-config
+data:
+  config.yaml: |
+    mirror:
+      - type: rsync
+        src: rsync://mirrors.rit.edu/rocky/9/BaseOS/x86_64/os/
+        dest: /repo/rocky/9/BaseOS/x86_64/os/
+      - type: rsync
+        src: rsync://mirrors.rit.edu/rocky/9/AppStream/x86_64/os/
+        dest: /repo/rocky/9/AppStream/x86_64/os/
+      - type: rsync
+        src: rsync://mirrors.rit.edu/rocky/9/extras/x86_64/os/
+        dest: /repo/rocky/9/extras/x86_64/os/
+      - type: rsync
+        src: rsync://mirrors.rit.edu/epel/9/Everything/x86_64/
+        dest: /repo/epel/9/Everything/x86_64
+      - type: rsync
+        src: rsync://mirrors.rit.edu/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.*
+        dest: /repo/rocky/9/images/x86_64/.
+      - type: rsync
+        src: rsync://mirrors.rit.edu/rocky/9/images/x86_64/Rocky-9-GenericCloud-LVM-9.*
+        dest: /repo/rocky/9/images/x86_64/.

@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mirror-sparteklabs-io-webroot
+  annotations: {}
+  labels:
+    app: mirror-sparteklabs-io
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: ''
+  volumeName: ''
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cattledrive
+spec:
+  schedule: "@hourly"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cattledrive
+            image: public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest
+            imagePullPolicy: Always
+            command:
+            - /bin/cattleDrive
+            - /config/config.yaml
+            volumeMounts:
+              - mountPath: "/repo"
+                name: repo
+              - name: config
+                mountPath: /config
+          restartPolicy: OnFailure
+          volumes:
+            - name: config
+              configMap:
+                defaultMode: 420
+                name: cattledrive-config
+            - name: repo
+              persistentVolumeClaim:
+                claimName: mirror-sparteklabs-io-webroot
