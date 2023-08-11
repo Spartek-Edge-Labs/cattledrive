@@ -5,7 +5,7 @@ A tool designed to declaratively pull artifacts needed (yum repos, web directori
 
 - [Rancher Federal's Hauler](https://github.com/rancherfederal/hauler)
 - [Pulp](https://pulpproject.org/)
-- A variation of ever script I've ever written on every project I've ever been on
+- A variation of ever script we've ever written on every project we've ever been on
 
 The script should be generally idempotent, but recommend you test on a fresh folder before using it as a mirror script. See [TODO](./TODO.md) for things that could use improvement.
 
@@ -27,6 +27,9 @@ docker run -d -v $(pwd):/repo \
 ```
 
 See the [docker readme](./docker-readme.md) for more details.
+
+### Kubernetes
+See the [k8s readme](./k8s/readme.md).
 
 ## Config
 The config file in this repo has examples of every type of "mirror" protocol thats currently implemented. See it for examples and modify to suit.

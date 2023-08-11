@@ -4,7 +4,7 @@ cattleDrive is well suited to be run as a Kubernetes `CronJob` and then hosted u
 ## Assumptions/requirements
 The resources make a couple of assumptions:
 1. You have a working Kubernetes cluster, kubectl installed, and can run kubectl commands against the cluster.
-2. You have a StorageClass with at least 100GB of storage.  You can adjust the size of the PVC in `cattledrive.yaml` if needed.
+2. You have a StorageClass with at least 100GB of storage.  You can adjust the size of the PVC in `cattledrive.yaml` as needed.
 3. You have a functioning Ingress Controller
 
 ## Installation
