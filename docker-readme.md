@@ -9,7 +9,7 @@ docker build -t cattledrive:0.1 .
 
 ## Pulling
 We host a pre-built image available at:
-> public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest
+> ghcr.io/spartek-edge-labs/cattledrive:latest
 
 ## Running
 

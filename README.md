@@ -22,7 +22,7 @@ The script should be generally idempotent, but recommend you test on a fresh fol
 docker run -d -v $(pwd):/repo \
  -v /home/mike/drop/cattleDrive:/home/mike/drop/cattleDrive \
  -v /var/run/docker.sock:/var/run/docker.sock \
- public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest \
+ ghcr.io/spartek-edge-labs/cattledrive:latest \
  cattleDrive /repo/config.yml
 ```
 

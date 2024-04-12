@@ -28,7 +28,7 @@ spec:
         spec:
           containers:
           - name: cattledrive
-            image: public.ecr.aws/j4c4w9u9/spartek-engineering/cattledrive:latest
+            image: ghcr.io/spartek-edge-labs/cattledrive:latest
             imagePullPolicy: Always
             command:
             - /bin/cattleDrive
