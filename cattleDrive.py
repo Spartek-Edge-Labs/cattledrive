@@ -39,7 +39,7 @@ def get_wget(src,dest):
                 "-m", "-nH", "--no-parent", 
                 "--cut-dirs=" + str(cutDirs), 
                 "--relative", "--reject=index.html?*",
-                 src ]), shell=True)
+                src ]), shell=True)
 
     # join/shell witchcraft due to #19 and https://stackoverflow.com/a/39096422
 
@@ -200,6 +200,7 @@ gpgkey={{ gpgkey }}
     f.close()
 
     # reposync the file
+    sp.run(f'yum -c {repoFile} --repo cattledrive clean all', shell=True)
     sp.run(f'reposync -c {repoFile} --repo cattledrive --norepopath', shell=True)
     sp.run('createrepo --update .', shell=True)
     if 'gpgkey' in args and args['gpgkey']:
