@@ -35,10 +35,10 @@ def get_wget(src,dest):
 
     # TODO: check wget is installed
     sp.run(' '.join(["wget", 
-                "-e robots=off", 
+                "-e robots=off", "-nv", 
                 "-m", "-nH", "--no-parent", 
                 "--cut-dirs=" + str(cutDirs), 
-                "--relative", "--reject=index.html?*",
+                "--relative", "--reject=index.html*",
                  src ]), shell=True)
 
     # join/shell witchcraft due to #19 and https://stackoverflow.com/a/39096422
