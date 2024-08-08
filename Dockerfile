@@ -5,7 +5,7 @@ COPY cattleDrive.py /bin/cattleDrive
 RUN chmod +x /bin/cattleDrive
 
 # install yum and pip-based dependencies
-RUN dnf -y install python3-pip wget yum-utils createrepo ansible-core skopeo rsync && pip3 install jinja2 pyyaml
+RUN dnf -y install python3-pip wget yum-utils createrepo ansible-core skopeo rsync pigz && pip3 install jinja2 pyyaml
 
 # helm
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
