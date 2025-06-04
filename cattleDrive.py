@@ -81,6 +81,8 @@ def get_oci(image,dest,compress):
     
     if compress is True:
         print(f">> Compressing {fullPath}.tar")
+        if os.path.exists(f"{fullPath}.tar.gz"):
+            os.remove(f"{fullPath}.tar.gz")
         sp.Popen("gzip " + fullPath + ".tar" , stdin=sp.PIPE, shell=True)
     
     os.chdir(currDir)
