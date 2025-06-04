@@ -69,13 +69,19 @@ def get_oci(image,dest,compress):
     pushd(dest)
     
     fileName = image.replace('/','_')
+    fullPath = f"{dest}{fileName}"
 
-    sp.run(["docker", "pull", image ])
+    print(">> Saving " + image + " to " + dest + fileName + ".tar")
 
+    if os.path.exists(fullPath):
+        os.remove(fullPath)
+
+    sp.run(["skopeo", "copy", "docker://" + image , f"docker-archive:/{dest}TEMP"])
+    os.rename(f"{dest}TEMP", f"{fullPath}.tar") #because skopeo doesnt have a good handling for existing archives
+    
     if compress is True:
-        sp.Popen("docker save " + image + " | gzip > " + fileName + ".tar.gz" , stdin=sp.PIPE, shell=True)
-    elif compress is False:
-        sp.run(["docker", "save", "-o" + fileName + ".tar", image])
+        print(f">> Compressing {fullPath}.tar")
+        sp.Popen("gzip " + fullPath + ".tar" , stdin=sp.PIPE, shell=True)
     
     os.chdir(currDir)
 
