@@ -1,4 +1,4 @@
-FROM rockylinux:9
+FROM quay.io/rockylinux/rockylinux:9
 
 # drop in cattleDrive script
 COPY cattleDrive.py /bin/cattleDrive
