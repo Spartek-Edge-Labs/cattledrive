@@ -34,12 +34,8 @@ def get_wget(src,dest):
     pushd(dest)
 
     # TODO: check wget is installed
-    sp.run(' '.join(["wget", 
-                "-e robots=off", "-nv", 
-                "-m", "-nH", "--no-parent", 
-                "--cut-dirs=" + str(cutDirs), 
-                "--relative", "--reject=index.html*",
-                 src ]), shell=True)
+    sp.run(f'wget -e robots=off -nv -m -nH --no-parent --cut-dirs={cutDirs} --relative {src}', shell=True)
+    sp.run(f'find . -name index.html -delete', shell=True) # https://superuser.com/questions/1162577/making-sense-of-wget-r-output/1162597#1162597
 
     # join/shell witchcraft due to #19 and https://stackoverflow.com/a/39096422
 
