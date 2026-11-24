@@ -190,6 +190,7 @@ def get_reposync (**args ):
 name=cattledrive repo
 baseurl={{ src }}
 enabled=1
+metadata_expire=0
 {% if gpgkey is defined %}gpgcheck=1
 gpgkey={{ gpgkey }}
 {% else %}gpgcheck=0
@@ -203,8 +204,12 @@ gpgkey={{ gpgkey }}
     f.write(renderedRepo)
     f.close()
 
+    # prune local rpms that are no longer in the upstream metadata, so the
+    # mirror does not grow without bound. opt out with 'delete: false'.
+    deleteFlag = ' --delete' if args.get('delete', True) else ''
+
     # reposync the file
-    sp.run(f'reposync -c {repoFile} --repo cattledrive --norepopath --download-metadata', shell=True)
+    sp.run(f'reposync -c {repoFile} --repo cattledrive --norepopath --download-metadata{deleteFlag}', shell=True)
     if 'gpgkey' in args and args['gpgkey']:
         get_wget(src=args['gpgkey'], dest='.')
     os.chdir(currDir)

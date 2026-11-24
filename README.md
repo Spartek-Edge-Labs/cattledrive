@@ -111,7 +111,13 @@ mirror:
 ### `reposync`
 When `wget` and `rsync` are not options, you can use `reposync`.  This utilizes `reposync` from your path and pulls the repo down based on a baseurl definition.  
 
-This is also useful when you're pulling from a location where you want to validate the metadata.  `createrepo --update .` is run at the end to generate repodata.
+This is also useful when you're pulling from a location where you want to validate the metadata.  `--download-metadata` is used, so the upstream `repodata/` tree is mirrored intact (including module metadata, `comps.xml` and `updateinfo.xml`).  We do *not* run `createrepo`, as regenerating the metadata would discard those.
+
+The `repodata/` directory is replaced wholesale on every run, so the metadata always matches upstream exactly.
+
+By default `--delete` is passed, so local `.rpm` files that are no longer in the upstream metadata are pruned.  This keeps the mirror the same size as its upstream instead of accumulating every package version ever published.  Set `delete: false` to keep them (e.g. if you want to retain old versions for rollback).
+
+> **Warning:** with `delete: true` (the default), *any* `.rpm` under `dest` that is not in this repo's metadata is removed.  Do not point two `reposync` entries at the same `dest`, or each run will delete the other's packages.
 
 **Example**
 ```yaml
@@ -120,6 +126,8 @@ mirror:
     src: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/
     dest: /home/mike/drop/cattleDrive/kick/working/os/kubernetes/el7/x86_64/
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg
+    delete: false # OPTIONAL - keep local rpms that upstream has dropped.
+                  # If omitted, defaults to true (prune them).
 ```
 
 ### `galaxy`
